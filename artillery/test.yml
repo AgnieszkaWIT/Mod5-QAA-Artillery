@@ -2,9 +2,17 @@ config:
   target: "https://nameday.abalin.net"
   phases:
     - duration: 60
+      arrivalRate: 1
+      rampTo: 5
+      name: "Warm up phase"
+    - duration: 60
       arrivalRate: 5
       rampTo: 10
-      name: "Faza ramp-up"
+      name: Ramp up to peak load
+    - duration: 120
+      arrivalRate: 10
+      rampTo: 25
+      name: Sustained peak load
   payload:
     path: "dates.csv"
     fields:
@@ -25,5 +33,3 @@ scenarios:
         - http.response_time.p95 < 800
         - http.response_time.median < 300
         - http.errors < 1%
-
-
